@@ -1,0 +1,16 @@
+{
+    "name"       : "va",
+    "version"    : "0.0.0",
+    "author"     : "François Colas <francoiscolas@gmail.com>",
+    "description": "Helper function for javascript varargs.",
+    "keywords"   : ["varargs"],
+
+    "repository": {
+        "type": "git",
+        "url" : "https://github.com/francoiscolas/va.git"
+    },
+
+    "engines": {
+        "node": ">= 0.8.0"
+    }
+}
