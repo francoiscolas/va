@@ -13,19 +13,25 @@
 
             descriptions.push({
                 name    : tokens.pop().replace(/=$/, ''),
-                type    : tokens[0] && tokens[0].toLowerCase(),
-                optional: (argument.substr(-1) === '=')
+                optional: (argument.substr(-1) === '='),
+                types   : tokens[0] && (function (array) {
+                    var object = undefined;
+
+                    for (var i = 0; i < array.length; ++i)
+                        (object || (object = {}))[array[i]] = true;
+                    return object;
+                })(tokens[0].toLowerCase().split('|')) || undefined
             });
         }
         for (var i = 0, j = 0; i < descriptions.length; i++) {
-            if (descriptions[i].type === undefined
-                    || (descriptions[i].type === 'array' && _toString.call(vargs[j]) === '[object Array]')
-                    || (descriptions[i].type === 'date' && _toString.call(vargs[j]) === '[object Date]')
-                    || (descriptions[i].type === 'number' && _toString.call(vargs[j]) === '[object Number]')
-                    || (descriptions[i].type === 'regexp' && _toString.call(vargs[j]) === '[object RegExp]')
-                    || (descriptions[i].type === 'string' && _toString.call(vargs[j]) === '[object String]')
-                    || (descriptions[i].type === 'function' && _toString.call(vargs[j]) === '[object Function]')
-                    || (descriptions[i].type === 'object' && _toString.call(vargs[j]) !== '[object Function]' && vargs[j] === Object(vargs[j]))) {
+            if (descriptions[i].types === undefined
+                    || (descriptions[i].types.array && _toString.call(vargs[j]) === '[object Array]')
+                    || (descriptions[i].types.date && _toString.call(vargs[j]) === '[object Date]')
+                    || (descriptions[i].types.number && _toString.call(vargs[j]) === '[object Number]')
+                    || (descriptions[i].types.regexp && _toString.call(vargs[j]) === '[object RegExp]')
+                    || (descriptions[i].types.string && _toString.call(vargs[j]) === '[object String]')
+                    || (descriptions[i].types.function && _toString.call(vargs[j]) === '[object Function]')
+                    || (descriptions[i].types.object && _toString.call(vargs[j]) !== '[object Function]' && vargs[j] === Object(vargs[j]))) {
                 args[descriptions[i].name] = vargs[j++];
             } else  if (descriptions[i].optional) {
                 args[descriptions[i].name] = undefined;
