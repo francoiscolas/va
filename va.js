@@ -5,6 +5,8 @@
 
     var _toString = Object.prototype.toString;
 
+    var _types = ['array','date','function','number','object','regexp','string'];
+
     var va = function (vargs/*, descriptions...*/) {
         var args         = {};
         var descriptions = [];
@@ -19,8 +21,17 @@
                 types   : tokens[0] && (function (array) {
                     var object = {};
 
-                    for (var i = 0; i < array.length; ++i)
-                        object[array[i]] = true;
+                    for (var i = 0; i < array.length; ++i) {
+                        if (array[i][0] === '!') {
+                            for (var j = 0; j != _types.length; ++j) {
+                                if (object[_types[j]] === undefined)
+                                    object[_types[j]] = true;
+                            }
+                            object[array[i].substring(1)] = false;
+                        } else {
+                            object[array[i]] = true;
+                        }
+                    }
                     return object;
                 })(tokens[0].toLowerCase().split('|'))
             });
