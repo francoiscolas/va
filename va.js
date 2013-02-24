@@ -1,10 +1,12 @@
+// va v0.1.0
+// https://github.com/francoiscolas/va
+
 (function () {
 
     var _toString = Object.prototype.toString;
 
     var va = function (vargs/*, descriptions...*/) {
         var args         = {};
-        var vargs        = Array.prototype.slice.call(vargs);
         var descriptions = [];
 
         for (var i = 1; i < arguments.length; i++) {
@@ -15,12 +17,12 @@
                 name    : tokens.pop().replace(/=$/, ''),
                 optional: (argument.substr(-1) === '='),
                 types   : tokens[0] && (function (array) {
-                    var object = undefined;
+                    var object = {};
 
                     for (var i = 0; i < array.length; ++i)
-                        (object || (object = {}))[array[i]] = true;
+                        object[array[i]] = true;
                     return object;
-                })(tokens[0].toLowerCase().split('|')) || undefined
+                })(tokens[0].toLowerCase().split('|'))
             });
         }
         for (var i = 0, j = 0; i < descriptions.length; i++) {
@@ -31,7 +33,10 @@
                     || (descriptions[i].types.regexp && _toString.call(vargs[j]) === '[object RegExp]')
                     || (descriptions[i].types.string && _toString.call(vargs[j]) === '[object String]')
                     || (descriptions[i].types.function && _toString.call(vargs[j]) === '[object Function]')
-                    || (descriptions[i].types.object && _toString.call(vargs[j]) !== '[object Function]' && vargs[j] === Object(vargs[j]))) {
+                    || (descriptions[i].types.object && Object(vargs[j]) === vargs[j]
+                            && _toString.call(vargs[j]) !== '[object Date]'
+                            && _toString.call(vargs[j]) !== '[object RegExp]'
+                            && _toString.call(vargs[j]) !== '[object Function]')) {
                 args[descriptions[i].name] = vargs[j++];
             } else  if (descriptions[i].optional) {
                 args[descriptions[i].name] = undefined;
