@@ -1,0 +1,13 @@
+0.2.0 - 2013-03-13
+
+	* Fixed Date and Regexp match issues.
+
+	* Separate types with a pipe to match multi-types (ex:
+	`va(arguments, 'array|object data')` will match arrays and objects).
+
+	* Prepend types with a '!' to invert the match (ex:
+	`va(arguments, '!function data')` will match anything but functions).
+
+0.1.0 - 2012-11-22
+
+	* Initial version of va.js.

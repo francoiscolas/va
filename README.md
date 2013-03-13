@@ -8,7 +8,7 @@ Helper function for javascript varargs.
 Usage
 -----
 
-````javascript
+```javascript
 var va = require('va');
 
 var start = function (port, host, options, callback) {
@@ -33,14 +33,15 @@ start(8080, {timeout: 100}, console.log);
 
 start(console.log);
 # => {} because the port is mandatory (no "=" at end of the argument description)
-````
+```
 
 
 
 Git repository
 --------------
 
-https://github.com/francoiscolas/va
+git://github.com/francoiscolas/va.git
+
 
 
 License

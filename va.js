@@ -1,4 +1,4 @@
-// va v0.1.0
+// va v0.2.0
 // https://github.com/francoiscolas/va
 
 (function () {

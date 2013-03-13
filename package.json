@@ -1,13 +1,13 @@
 {
     "name"       : "va",
-    "version"    : "0.1.0",
+    "version"    : "0.2.0",
     "author"     : "François Colas <francoiscolas@gmail.com>",
     "description": "Helper function for javascript varargs.",
     "keywords"   : ["varargs", "arguments"],
 
     "repository": {
         "type": "git",
-        "url" : "https://github.com/francoiscolas/va.git"
+        "url" : "git://github.com/francoiscolas/va.git"
     },
 
     "devDependencies": {
